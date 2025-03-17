@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 import { TaskComponent } from "../taks/task/task.component";
+import { NewTaskComponent } from "./new-task/new-task.component";
 
 type Task = {
   id: string;
@@ -12,13 +13,15 @@ type Task = {
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
-  @Input ({required: true}) userId!: string;
-  @Input({required: true}) name!: string;
+  AddTaskClicked = false;
+
+  @Input({ required: true }) userId!: string;
+  @Input({ required: true }) name!: string;
 
 
 
@@ -48,12 +51,21 @@ export class TasksComponent {
     },
   ];
 
-  get selectedUser(){
+  get selectedUser() {
     return this.tasks.filter(task => task.userId === this.userId);
   }
 
   onCompleteTask(taskId: string) {
     this.tasks = this.tasks.filter((task) => task.id !== taskId);
+  }
 
+
+  AddTask() {
+    this.AddTaskClicked = !this.AddTaskClicked;
+  }
+
+  onTaskAdded(task: Task) {
+    task.id = 't' + (this.tasks.length + 1);
+    this.tasks.push(task);
   }
 }

@@ -1,0 +1,10 @@
+<form>
+  <input type="text" placeholder="Task name" [(ngModel)]="model.title" />
+  <input type="text" placeholder="Task name" [(ngModel)]="model.summary" />
+  <input type="date" [(ngModel)]="model.dueDate" />
+  <button type="submit" (click)="onSubmit()">Add task</button>
+
+  <!-- <input type="text" placeholder="Task description" [summary]="summary"  />
+  <input type="date" [duedate] = "duedate" />
+  <button type="submit" (submit)="onSubmit()">Add task</button> -->
+</form>
