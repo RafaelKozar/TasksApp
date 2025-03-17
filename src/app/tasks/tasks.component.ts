@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 import { TaskComponent } from "../taks/task/task.component";
 import { NewTaskComponent } from "./new-task/new-task.component";
+import { NewTask2Component } from "./new-task2/new-task2.component";
 
 type Task = {
   id: string;
@@ -13,12 +14,13 @@ type Task = {
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskComponent, NewTaskComponent],
+  imports: [TaskComponent, NewTaskComponent, NewTask2Component],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
   AddTaskClicked = false;
+  isAddingTask = false;
 
   @Input({ required: true }) userId!: string;
   @Input({ required: true }) name!: string;
@@ -60,12 +62,20 @@ export class TasksComponent {
   }
 
 
-  AddTask() {
+  onStartAddTask() {
     this.AddTaskClicked = !this.AddTaskClicked;
+    this.isAddingTask = true;
+  }
+
+  onCancelAddTask() {
+    this.isAddingTask = false;
   }
 
   onTaskAdded(task: Task) {
     task.id = 't' + (this.tasks.length + 1);
     this.tasks.push(task);
   }
+
+
+
 }
